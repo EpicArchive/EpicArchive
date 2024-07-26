@@ -9,8 +9,8 @@
 
     <PropertyGroup>
         <WasmEnableSIMD>false</WasmEnableSIMD> <!-- support isn't particularly widespread -->
-        <EmccInitialHeapSize>67108864</EmccInitialHeapSize>
-        <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize> <!-- so that mobile browsers don't poop themselves -->
+        <EmccInitialHeapSize>16777216</EmccInitialHeapSize> <!-- 16 MB -->
+        <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize> <!-- 256 MB; so that mobile browsers don't poop themselves -->
         <RunAOTCompilation>false</RunAOTCompilation>
         <InvariantGlobalization>true</InvariantGlobalization> <!-- don't need it and increases size -->
         <InvariantTimezone>true</InvariantTimezone> <!-- also don't need it -->
