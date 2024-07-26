@@ -52,7 +52,12 @@ async function onFetch(event) {
 
         // workaround for https://github.com/dotnet/aspnetcore/issues/33872
         if (cachedResponse && cachedResponse.redirected) {
-            cachedResponse = {...cachedResponse, redirected: false};
+            cachedResponse = new Response(cachedResponse.body,
+                {
+                    headers: cachedResponse.headers,
+                    status: cachedResponse.status,
+                    statusText: cachedResponse.statusText
+                });
         }
     }
 
