@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <WasmEnableSIMD>false</WasmEnableSIMD> <!-- support isn't particularly widespread -->
+        <EmccInitialHeapSize>67108864</EmccInitialHeapSize>
+        <EmccMaximumHeapSize>268435456</EmccMaximumHeapSize> <!-- so that mobile browsers don't poop themselves -->
+        <RunAOTCompilation>false</RunAOTCompilation>
+        <InvariantGlobalization>true</InvariantGlobalization> <!-- don't need it and increases size -->
+        <InvariantTimezone>true</InvariantTimezone> <!-- also don't need it -->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.6" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js"/>
+    </ItemGroup>
+
+</Project>
