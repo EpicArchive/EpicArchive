@@ -1,0 +1,89 @@
+nav {
+    display: flex;
+    flex: 1;
+}
+
+.nav-link {
+    margin-left: 25px;
+}
+
+    .nav-link ::deep a {
+        padding: 10px 15px;
+        border-radius: 25px;
+        color: rgb(245, 245, 245);
+        text-decoration: none;
+        transition: 0.02s;
+    }
+
+        .nav-link ::deep a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-link ::deep a.active {
+            background-color: rgba(97, 205, 255, 0.7);
+            color: rgb(18, 18, 18);
+        }
+
+        .nav-link ::deep span {
+            vertical-align: text-bottom;
+            line-height: 1;
+            transition: 0.02s;
+        }
+
+    .nav-link ::deep svg {
+        vertical-align: middle;
+        font-size: 1.5rem;
+        transition: 0.02s;
+    }
+
+@media (max-width: 640.98px) {
+    .logo {
+        display: none;
+    }
+
+    nav {
+        justify-content: space-around;
+        border-top: 1px solid #28282c;
+    }
+
+    .nav-link {
+        margin: 0;
+    }
+
+        .nav-link ::deep a {
+            display: flex;
+            padding: 5px 0;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+        }
+
+            .nav-link ::deep a:hover {
+                background-color: transparent;
+            }
+
+            .nav-link ::deep a.active {
+                background-color: transparent;
+            }
+
+                .nav-link ::deep a.active svg {
+                    background-color: rgba(97, 205, 255, 0.7);
+                    color: rgb(18, 18, 18);
+                }
+    
+                .nav-link ::deep a.active span {
+                    color: rgb(97, 205, 255);
+            }
+
+        .nav-link ::deep svg {
+            width: 50px;
+            padding: 2px 0;
+            border-radius: 25px;
+        }
+
+        .nav-link ::deep span {
+            margin-top: 5px;
+            text-rendering: optimizeLegibility;
+        }
+        
+}

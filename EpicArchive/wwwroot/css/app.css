@@ -8,7 +8,31 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: rgb(18, 18, 18);
     color: rgb(245, 245, 245);
+    overscroll-behavior: none;
 }
+
+.logo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="currentColor" fill-rule="evenodd"%3E%3Cpath d="M5.359375 1.7578125c-1.7019983 0-2.328125.6271267-2.328125 2.328125V24.611328l.025391.53711c.038.371999.047578.730672.3925782 1.138671.1255442.105018.2543376.206478.3867187.302735l.5332031.248047 10.328125 4.326171c.536999.245.760391.342985 1.15039.333985h.0039c.39.008.613392-.08899 1.150391-.333985l10.328131-4.326171.533203-.248047.386719-.302735c.345-.409999.353578-.768672.392578-1.138671.01745-.178459.02618-.357802.02539-.53711V4.0859375c0-1.7019983-.628127-2.328125-2.328125-2.328125h-.002zm3.7402344 3.8691406H22.599609c1.242599 0 2.25 1.0073613 2.25 2.25v1.5c0 .7800989-.397 1.4674639-1 1.8710939v8.628906c0 2.071098-1.678902 3.75-3.75 3.75h-8.5c-2.0710676 0-3.7499996-1.678902-3.7499996-3.75v-8.628906c-.6029894-.40363-1-1.090995-1-1.8710939v-1.5c0-1.2426387 1.0073612-2.25 2.25-2.25zm0 1.5c-.4142096 0-.75.3357904-.75.75v1.5c0 .4142096.3357904.7499999.75.7499999H22.599609c.4142 0 .75-.3357903.75-.7499999v-1.5c0-.4142096-.3358-.75-.75-.75zm.25 4.4999999v8.25c0 1.242599 1.0073616 2.25 2.2499996 2.25h8.5c1.242599 0 2.25-1.007401 2.25-2.25v-8.25zm4.7499996 2h3.5c.4142 0 .75.335801.75.75 0 .4142-.3358.75-.75.75h-3.5c-.414209 0-.75-.3358-.75-.75 0-.414199.335791-.75.75-.75zm-3.191406 13.798828h9.931641l-5.070313 1.671875z"/%3E%3C/svg%3E');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(1);
+}
+
+.loading-logo {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .loading-logo .logo {
+        width: min(50vh, min(50vw, 360px));
+        height: min(50vh, min(50vw, 360px));
+    }
 
 h1:focus {
     outline: none;
@@ -82,21 +106,17 @@ a, .btn-link {
 
     .loading-progress circle {
         fill: none;
-        stroke: rgb(0, 120, 242);
+        stroke: rgb(54, 54, 54);
         stroke-width: 0.6rem;
-        stroke-dasharray: calc(3.141 * var(--blazor-load-percentage) * 0.8), 500%;
         transform-origin: 50% 50%;
-        stroke-linecap: round;
         transform: rotate(-90deg);
-        transition: stroke-dasharray 0.05s ease-in-out;
     }
-    
-    /* style query support is spotty, but this is just an aesthetic thing, so nothing major */
-    @container style(--blazor-load-percentage: 0%) {
-        .loading-progress circle {
-            stroke-linecap: butt;
+
+        .loading-progress circle:last-child {
+            stroke: rgb(0, 120, 242);
+            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage) * 0.8), 500%;
+            transition: stroke-dasharray 0.05s ease-in-out;
         }
-    }
 
 .loading-progress-text {
     position: fixed;
@@ -111,24 +131,28 @@ a, .btn-link {
 
 .loading-bar {
     position: fixed;
-    inset: auto 0 0 -17rem;
-    height: 1rem;
-    background: repeating-linear-gradient(
-        -45deg,
-        #26bbff,
-        #26bbff 0.3rem,
-        #007aff 0.3rem,
-        #007aff 0.6rem
+    inset: auto 0 env(safe-area-inset-bottom) calc(-120px / cos(45deg));
+    display: block;
+    height: 8px;
+
+    background-image: repeating-linear-gradient(
+        to right,
+        rgb(0, 120, 242),
+        rgb(0, 120, 242) 4px,
+        rgb(96, 171, 247) 4px,
+        rgb(96, 171, 247) 8px
     );
-    animation: loading-bar-animation linear 5s infinite;
+
+    /* idk how fast Epic's one moves but this seems fine */
+    animation: loading-bar-animation linear 3s infinite;
 }
 
     @keyframes loading-bar-animation {
         0% {
-            transform: translateX(0);
+            transform: skewX(-45deg) translateX(0);
         }
         100% {
-            transform: translateX(calc(12rem / cos(45deg)));
+            transform: skewX(-45deg) translateX(calc(120px / cos(45deg)));
         }
     }
 

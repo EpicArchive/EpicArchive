@@ -1,16 +1,37 @@
 ﻿@inherits LayoutComponentBase
 <div class="page">
-    <header class="sidebar">
+    <!--<header class="sidebar">
         <NavMenu />
+    </header>-->
+
+    <header class="navigation">
+        <Navigation />
     </header>
 
     <main>
-        <header class="top-row px-4">
-            
-        </header>
-
-        <article class="content px-4">
+        <article class="content">
             @Body
         </article>
     </main>
 </div>
+
+<!--
+
+- overview
+    - game overview
+        - assets (manifests)
+        - price history
+
+- account
+    - manage
+        - login
+        - logout
+        - revoke access for archiving manifests
+    - api
+        - get game info
+        - webhooks
+        - download manifests
+        - provide account for archiving manifests
+    
+
+-->
