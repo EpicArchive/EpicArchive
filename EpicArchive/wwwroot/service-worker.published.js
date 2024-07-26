@@ -49,6 +49,11 @@ async function onFetch(event) {
         const request = shouldServeIndexHtml ? 'index.html' : event.request;
         const cache = await caches.open(cacheName);
         cachedResponse = await cache.match(request);
+
+        // workaround for https://github.com/dotnet/aspnetcore/issues/33872
+        if (cachedResponse && cachedResponse.redirected) {
+            cachedResponse = {...cachedResponse, redirected: false};
+        }
     }
 
     return cachedResponse || fetch(event.request);

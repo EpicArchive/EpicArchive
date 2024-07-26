@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EpicArchive</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
+    <!--suppress HtmlUnknownTarget -->
     <link href="EpicArchive.styles.css" rel="stylesheet" />
     <link href="manifest.webmanifest" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
@@ -19,9 +19,9 @@
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
         </svg>
         <div class="loading-progress-text"></div>
+        <div class="loading-bar"></div>
     </div>
 
     <div id="blazor-error-ui">
@@ -29,25 +29,30 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+
+    <!--suppress HtmlUnknownTarget, HtmlUnknownAttribute -->
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+
     <script type="module">
         import { BrotliDecode } from './decode.min.js';
+        // noinspection JSUnresolvedReference,JSUnusedGlobalSymbols
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity) {
                 if (type !== 'dotnetjs' && location.hostname !== 'localhost' && type !== 'configuration') {
-                    return (async function () {
+                    return (async () => {
                         const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+
                         if (!response.ok) {
                             throw new Error(response.statusText);
                         }
+
                         const originalResponseBuffer = await response.arrayBuffer();
                         const originalResponseArray = new Int8Array(originalResponseBuffer);
                         const decompressedResponseArray = BrotliDecode(originalResponseArray);
-                        const contentType = type ===
-                        'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                        return new Response(decompressedResponseArray,
-                            { headers: { 'content-type': contentType } });
+                        const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+
+                        return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
                     })();
                 }
             }

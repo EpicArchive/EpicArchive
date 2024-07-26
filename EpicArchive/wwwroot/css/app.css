@@ -1,5 +1,13 @@
+:root {
+    --blazor-load-percentage: 0%;
+    --blazor-load-percentage-text: "Loading";
+}
+
 html, body {
+    margin: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: rgb(18, 18, 18);
+    color: rgb(245, 245, 245);
 }
 
 h1:focus {
@@ -17,7 +25,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -66,36 +74,62 @@ a, .btn-link {
     }
 
 .loading-progress {
-    position: relative;
-    display: block;
+    position: fixed;
+    inset: calc(50vh - 4rem) auto auto calc(50vw - 4rem);
     width: 8rem;
     height: 8rem;
-    margin: 20vh auto 1rem auto;
 }
 
     .loading-progress circle {
         fill: none;
-        stroke: #e0e0e0;
+        stroke: rgb(0, 120, 242);
         stroke-width: 0.6rem;
+        stroke-dasharray: calc(3.141 * var(--blazor-load-percentage) * 0.8), 500%;
         transform-origin: 50% 50%;
+        stroke-linecap: round;
         transform: rotate(-90deg);
+        transition: stroke-dasharray 0.05s ease-in-out;
+    }
+    
+    /* style query support is spotty, but this is just an aesthetic thing, so nothing major */
+    @container style(--blazor-load-percentage: 0%) {
+        .loading-progress circle {
+            stroke-linecap: butt;
+        }
     }
 
-        .loading-progress circle:last-child {
-            stroke: #1b6ec2;
-            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
-
 .loading-progress-text {
-    position: absolute;
+    position: fixed;
+    inset: calc(50vh - 0.5rem) 0 auto 0;
     text-align: center;
     font-weight: bold;
-    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
 }
 
     .loading-progress-text:after {
-        content: var(--blazor-load-percentage-text, "Loading");
+        content: var(--blazor-load-percentage-text);
+    }
+
+.loading-bar {
+    position: fixed;
+    inset: auto 0 0 -17rem;
+    height: 1rem;
+    background: repeating-linear-gradient(
+        -45deg,
+        #26bbff,
+        #26bbff 0.3rem,
+        #007aff 0.3rem,
+        #007aff 0.6rem
+    );
+    animation: loading-bar-animation linear 5s infinite;
+}
+
+    @keyframes loading-bar-animation {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(12rem / cos(45deg)));
+        }
     }
 
 code {
