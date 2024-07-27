@@ -23,7 +23,7 @@ html, body {
 
 .loading-logo {
     position: fixed;
-    inset: 0;
+    inset: 0 0 env(safe-area-inset-bottom) 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,6 +155,10 @@ a, .btn-link {
             transform: skewX(-45deg) translateX(calc(120px / cos(45deg)));
         }
     }
+
+.side-25px {
+    padding: 0 25px;
+}
 
 code {
     color: #c02d76;

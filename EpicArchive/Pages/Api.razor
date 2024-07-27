@@ -1,0 +1,46 @@
+﻿@page "/api"
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
+<PageTitle>API</PageTitle>
+
+<div class="side-25px">
+    <h1>Plan for this page</h1>
+    <ul>
+        <li>
+            API overview (will require authentication to avoid abuse)
+            <ul>
+                <li>
+                    Get game info
+                    <ul>
+                        <li>version</li>
+                        <li>price history</li>
+                        <li>download manifests</li>
+                        <li>webhooks</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <p role="status">Cookies: @_currentCount</p>
+
+    <button class="btn btn-primary" style="font-size: 32px;" @onclick="IncrementCount">🍪</button>
+</div>
+
+@code {
+
+    private int _currentCount;
+
+    private const string CountKey = "count";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _currentCount = await LocalStorage.GetItemAsync<int?>(CountKey) ?? 0;
+    }
+
+    private async void IncrementCount()
+    {
+        await LocalStorage.SetItemAsync(CountKey, ++_currentCount);
+    }
+
+}

@@ -1,0 +1,26 @@
+﻿@page "/account"
+
+<PageTitle>Account</PageTitle>
+
+<div class="side-25px">
+    <h1>Account</h1>
+
+    <p>
+        <a href="https://www.epicgames.com/id/login?redirectUrl=https%3A//www.epicgames.com/id/api/redirect%3FclientId%3D34a02cf8f4414e29b15921876da36f9a%26responseType%3Dcode" target="_blank">Login</a>
+    </p>
+    
+    <p>
+        @_response
+    </p>
+</div>
+
+@code {
+
+    private string? _response;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+
+}

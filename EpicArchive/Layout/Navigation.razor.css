@@ -43,7 +43,7 @@ nav {
 
     nav {
         justify-content: space-around;
-        border-top: 1px solid #28282c;
+        border-top: 1px solid rgb(40, 40, 44);
     }
 
     .nav-link {

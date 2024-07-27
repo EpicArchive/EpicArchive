@@ -5,7 +5,7 @@
   "start_url": "./",
   "display": "standalone",
   "background_color": "rgb(18, 18, 18)",
-  "theme_color": "rgb(18, 18, 18)",
+  "theme_color": "rgb(24, 24, 28)",
   "prefer_related_applications": false,
   "icons": [
     {

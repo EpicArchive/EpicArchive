@@ -1,0 +1,21 @@
+@page "/oauth/redirect"
+@inject NavigationManager Navigation
+
+<PageTitle>EpicArchive OAuth Redirect</PageTitle>
+
+<div class="side-25px">
+    <h1>Redirect</h1>
+    <p>@_url</p>
+</div>
+
+@code {
+
+    private string? _url;
+
+    protected override Task OnInitializedAsync()
+    {
+        _url = Navigation.Uri;
+        return Task.CompletedTask;
+    }
+
+}
